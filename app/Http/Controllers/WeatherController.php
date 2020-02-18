@@ -34,7 +34,7 @@ class WeatherController extends Controller
     {
         $client = new Client();
         try {
-            $response = $client->request('GET', 'api.openweathermap.org/data/2.5/weather?q='.$request->location.'&appid=bd45fc9db8849cb46d00a451483ccd44');
+            $response = $client->request('GET', env('WEATHER_API_URL').$request->location.'&appid='.env('APP_ID'));
         } catch (\Throwable $th) {
             return redirect('exception');
         }
