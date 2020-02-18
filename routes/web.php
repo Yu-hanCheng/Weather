@@ -11,7 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'WeatherController@index');
 Route::post('show','WeatherController@show');
+Route::get('exception','WeatherController@exception_error');

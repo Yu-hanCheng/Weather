@@ -7,7 +7,16 @@ use GuzzleHttp\Client;
 use App\Weather;
 class WeatherController extends Controller
 {
-    
+
+    public function index(){
+        $datas = Weather::orderBy('created_at', 'desc')->get();
+        return view('welcome', compact('datas'));
+    }
+    public function exception_error(){
+        $cod='404';
+        $msg="The city is not exist!!";
+        return view('exception', compact('cod','msg'));
+    }
     /**
      * Display the specified resource.
      *
@@ -20,7 +29,7 @@ class WeatherController extends Controller
         try {
             $response = $client->request('GET', 'api.openweathermap.org/data/2.5/weather?q='.$request->location.'&appid=bd45fc9db8849cb46d00a451483ccd44');
         } catch (\Throwable $th) {
-            return response()->json(['result'=>"The city is not exist!!"],404);
+            return redirect('exception');
         }
         $response = json_decode($response->getBody());
         
@@ -30,8 +39,7 @@ class WeatherController extends Controller
             'weather'=>json_encode($response->weather),
         ]);
         
-        
-        return response()->json(['result'=>$weather],200);
+        return redirect('/');
         
     }
 

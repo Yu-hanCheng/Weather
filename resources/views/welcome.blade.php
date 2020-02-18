@@ -92,15 +92,23 @@
                     <button type="submit" class="btn btn-primary form-text">Search</button>
                 </form>
                 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <div class="panel-body">
+                    <table class="table table-striped task-table">
+                        <thead>
+                            <th>History</th>
+                            <th>&nbsp;</th>
+                        </thead>
+                        <tbody>
+                        @foreach ($datas as $data)
+                            <tr>
+                                <td class="col-sm-6 task-content" name="location" value="{{$data->location}}" >{{$data->location}}</td>
+                                <td class="col-sm-6 task-content" name="temp" value="{{$data->temp}}" >{{$data->temp}}</td>
+                                <td class="col-sm-6 task-content" name="weather" value="{{$data->weather}}" >{{$data->weather}}</td>
+                                
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
