@@ -14,13 +14,13 @@ class WeatherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
         $client = new Client();
         try {
-            $response = $client->request('GET', 'api.openweathermap.org/data/2.5/weather?id='.$id.'&appid=bd45fc9db8849cb46d00a451483ccd44');
+            $response = $client->request('GET', 'api.openweathermap.org/data/2.5/weather?q='.$request->location.'&appid=bd45fc9db8849cb46d00a451483ccd44');
         } catch (\Throwable $th) {
-            return response()->json(['result'=>$th],500);
+            return response()->json(['result'=>"The city is not exist!!"],404);
         }
         $response = json_decode($response->getBody());
         

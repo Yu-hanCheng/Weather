@@ -5,11 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Laravel</title>
-
+        
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
         <!-- Styles -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
         <style>
             html, body {
                 background-color: #fff;
@@ -45,9 +46,11 @@
             }
 
             .title {
-                font-size: 84px;
+                font-size: 54px;
             }
-
+            .form-text {
+                font-size: 24px;
+            }
             .links > a {
                 color: #636b6f;
                 padding: 0 25px;
@@ -80,10 +83,15 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    Laravel
+            <div class="title m-b-md">
+                Current Weather 
                 </div>
-
+                <form action="/show" method="post">
+                    @csrf   
+                    <input type="text" name="location" class="form-text" value="Taipei">
+                    <button type="submit" class="btn btn-primary form-text">Search</button>
+                </form>
+                
                 <div class="links">
                     <a href="https://laravel.com/docs">Docs</a>
                     <a href="https://laracasts.com">Laracasts</a>
