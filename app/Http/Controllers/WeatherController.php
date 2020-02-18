@@ -5,11 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use App\Weather;
+use Illuminate\Support\Facades\Cookie;
 class WeatherController extends Controller
 {
 
-    public function index(){
-        $datas = Weather::orderBy('created_at', 'desc')->get();
+    public function index(Request $request){
+        
+        $datas = array();
+        for($i=5;$i>0;$i--){
+            if ($request->cookie($i)) {
+                array_push($datas,json_decode($request->cookie($i)));
+            }
+        }     
         return view('welcome', compact('datas'));
     }
     public function exception_error(){
@@ -39,8 +46,24 @@ class WeatherController extends Controller
             'weather'=>json_encode($response->weather),
         ]);
         
-        return redirect('/');
+        $the_ptr=$request->cookie('ptr');
+        if($the_ptr==null){
+            $ptr_cookie = Cookie::make('ptr',strval(1));
+            $the_ptr=1;
+        }
+        if($the_ptr==6){
+            $ptr_cookie = Cookie::make('ptr',strval(1) );
+            for($i=1;$i<5;$i++){
+                ${"c".$i}=Cookie::make($i, $request->cookie($i+1));
+            }
+            $c5 = Cookie::make(5, $weather);
+            return redirect('/')->withCookie($c1)->withCookie($c2)->withCookie($c3)->withCookie($c4)->withCookie($c5);
+        }else{
+            $cookie = Cookie::make($the_ptr, $weather);
+            $ptr_cookie = Cookie::make('ptr', strval($the_ptr+1));
+        }
+        return redirect('/')->withCookie($ptr_cookie)->withCookie($cookie);
         
     }
-
+  
 }
