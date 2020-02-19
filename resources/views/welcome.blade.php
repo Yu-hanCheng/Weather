@@ -64,6 +64,11 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            th{
+                text-align: center;
+            }
+
         </style>
     </head>
     <body>
@@ -99,14 +104,21 @@
                             <th>&nbsp;</th>
                         </thead>
                         <tbody>
-                        @foreach ($datas as $data)
+                        <tr>
+                            <th class="col-6 task-content" name="location"  >Location</th>
+                            <th class="col-6 task-content" name="temp"  >Temperature</th>
+                            <th class="col-6 task-content" name="weather"  >Weather</th>
+                            
+                        </tr>
+                        @if($datas)
+                            @foreach ($datas as $data)
                             <tr>
-                                <td class="col-sm-6 task-content" name="location" value="{{$data->location}}" >{{$data->location}}</td>
-                                <td class="col-sm-6 task-content" name="temp" value="{{$data->temp}}" >{{$data->temp}}</td>
-                                <td class="col-sm-6 task-content" name="weather" value="{{$data->weather}}" >{{$data->weather}}</td>
-                                
+                                <td class="col-6 task-content" name="location" value="{{$data['location']}}" >{{$data['location']}}</td>
+                                <td class="col-6 task-content" name="temp" value="{{$data['temp']}}" >{{$data['temp']}}</td>
+                                <td class="col-6 task-content" name="weather" value="{{$data['weather']}}" >{{$data['weather']}}</td>
                             </tr>
-                        @endforeach
+                            @endforeach
+                        @endif
                         </tbody>
                     </table>
                 </div>

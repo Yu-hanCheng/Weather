@@ -8,15 +8,14 @@ use App\Weather;
 use Illuminate\Support\Facades\Cookie;
 class WeatherController extends Controller
 {
-
+    
     public function index(Request $request){
-        
-        $datas = array();
-        for($i=5;$i>0;$i--){
-            if ($request->cookie($i)) {
-                array_push($datas,json_decode($request->cookie($i)));
-            }
-        }     
+        $datas_origin =json_decode( $request->cookie('history'),true);
+        if ($datas_origin) {
+            $datas=array_reverse($datas_origin);
+        }else{
+            $datas=array();
+        }
         return view('welcome', compact('datas'));
     }
     public function exception_error(){
@@ -45,23 +44,22 @@ class WeatherController extends Controller
             'weather'=>($response->weather)[0]->description,
         ]);
         
-        $the_ptr=$request->cookie('ptr');
-        if($the_ptr==null){
-            $ptr_cookie = Cookie::make('ptr',strval(1));
-            $the_ptr=1;
-        }
-        if($the_ptr==6){
-            $ptr_cookie = Cookie::make('ptr',strval(1) );
-            for($i=1;$i<5;$i++){
-                ${"c".$i}=Cookie::make($i, $request->cookie($i+1));
-            }
-            $c5 = Cookie::make(5, $weather);
-            return redirect('/')->withCookie($c1)->withCookie($c2)->withCookie($c3)->withCookie($c4)->withCookie($c5);
+        
+        $history_arr=$request->cookie('history');
+        
+        $decode=array();
+        if (!$history_arr) {
+            $history_arr=array();
         }else{
-            $cookie = Cookie::make($the_ptr, $weather);
-            $ptr_cookie = Cookie::make('ptr', strval($the_ptr+1));
+            $decode=json_decode($history_arr,true);
+            if (count($decode)==env('LIST_COUNT')) {
+                array_shift($decode);
+            }
         }
-        return redirect('/')->withCookie($ptr_cookie)->withCookie($cookie);
+        array_push($decode,$weather);
+        $cookie = Cookie::make('history', json_encode($decode));
+        
+        return redirect('/')->withCookie($cookie);
         
     }
   
