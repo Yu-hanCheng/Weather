@@ -39,11 +39,10 @@ class WeatherController extends Controller
             return redirect('exception');
         }
         $response = json_decode($response->getBody());
-        
         $weather = Weather::create([
             'location'=>$response->name,
             'temp'=>$response->main->temp,
-            'weather'=>json_encode($response->weather),
+            'weather'=>($response->weather)[0]->description,
         ]);
         
         $the_ptr=$request->cookie('ptr');
