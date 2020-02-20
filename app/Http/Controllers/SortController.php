@@ -7,8 +7,8 @@ use App\Services\QsortService;
 
 class SortController extends Controller
 {
-    public function qsort(QsortService $quick_sort){
-        $arr = array(3,9,7,1,4,6,5,2);//
+    public function qsort(Request $request, QsortService $quick_sort ){
+        $arr = $request->arr ;
         $quick_sort ->sort($arr,0,count($arr)-1);
         dd($arr);
 

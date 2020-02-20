@@ -13,7 +13,4 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-Route::get('qsort','QsortController@index');
+Route::post('qsort','SortController@qsort')->name('sort.qsort');

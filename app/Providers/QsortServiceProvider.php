@@ -28,4 +28,8 @@ class QsortServiceProvider extends ServiceProvider
         //
     }
   
+    public function provides()
+    {
+        return [QsortService::class];
+    }
 }

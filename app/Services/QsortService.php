@@ -10,23 +10,32 @@ class QsortService{
         $arr[$b] = $temp;
     }
 
-    public function sort(array &$arr,$low,$high){
-        if($low<$high){
-            $pk=$arr[$low];
-            $i=$low;
-            $j=$high+1;
+    public function partition(array &$arr,$low,$high){
+        $pk=$arr[$low];
+        $i=$low;
+        $j=$high+1;
+        do{
             do{
-                do{
+                if ($i==count($arr)-1) {
+                    break;
+                }else{
                     $i++;
-                }while($arr[$i]<$pk);
-                do{
-                    $j--;
-                }while($arr[$j]>$pk);
-                if($i<$j){$this->swap($arr,$i,$j);}
-            }while($i<$j);
-            $this->swap($arr,$low,$j);
-            $this->sort($arr,$low,$j-1);
-            $this->sort($arr,$j+1,$high);
+                }
+            }while($arr[$i]<$pk);
+            do{
+                $j--;
+            }while($arr[$j]>$pk);
+            if($i<$j){$this->swap($arr,$i,$j);}
+        }while($i<$j);
+        $this->swap($arr,$low,$j);
+        return $j;
+
+    }
+    public function sort(array &$arr,$head,$tail){
+        if($head<$tail){
+            $pk_index = $this->partition($arr,$head,$tail);
+            $this->sort($arr,$head,$pk_index-1);
+            $this->sort($arr,$pk_index+1,$tail);
             return $arr;
         }
     }
