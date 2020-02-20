@@ -9,6 +9,7 @@
     ```
     WEATHER_API_URL=api.openweathermap.org/data/2.5/weather?q=
     APP_ID=bd45fc9db8849cb46d00a451483ccd44
+    LIST_COUNT=5
     ```
     
 3. `php artisan migrate`

@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', 'WeatherController@index');
-Route::post('show','WeatherController@show');
-Route::get('exception','WeatherController@exception_error');
+Route::get('/', 'WeatherController@index')->name('weather.home');
+Route::post('show','WeatherController@show')->name('weather.show');
+Route::get('exception','WeatherController@exception_error')->name('weather.error');

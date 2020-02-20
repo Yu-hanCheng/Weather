@@ -35,7 +35,7 @@ class WeatherController extends Controller
         try {
             $response = $client->request('GET', env('WEATHER_API_URL').$request->location.'&appid='.env('APP_ID'));
         } catch (\Throwable $th) {
-            return redirect('exception');
+            return redirect(route('weather.error'));
         }
         $response = json_decode($response->getBody());
         $weather = Weather::create([
@@ -59,7 +59,7 @@ class WeatherController extends Controller
         array_push($decode,$weather);
         $cookie = Cookie::make('history', json_encode($decode));
         
-        return redirect('/')->withCookie($cookie);
+        return redirect(route('weather.home'))->withCookie($cookie);
         
     }
   
