@@ -14,3 +14,4 @@ use Illuminate\Http\Request;
 */
 
 Route::post('qsort','SortController@qsort')->name('sort.qsort');
+Route::post('msort','SortController@msort')->name('sort.msort');
