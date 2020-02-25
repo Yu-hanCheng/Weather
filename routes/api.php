@@ -14,3 +14,4 @@ use Illuminate\Http\Request;
 */
 
 Route::get('findPrime/{n}','TestController@find_prime');
+Route::get('linklist','TestController@list_crud');
