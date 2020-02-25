@@ -15,3 +15,15 @@
 3. `php artisan migrate`
 4. `php artisan serve`
 5. `http://localhost:8000/` 使用測試
+
+****************************************************************
+
+# Branches
+## master
+    1. weather search
+## louis
+    1. find nth prime
+    2. linklist
+## sort
+    1. Quick sort
+    2. Merge sort 
